@@ -2,6 +2,8 @@
 using namespace hb;
 
 int GameObject::s_game_object_identifier = 0;
+std::unordered_map<int, GameObject*> GameObject::s_game_objects_by_id = std::unordered_map<int, GameObject*>();
+std::unordered_map<std::string, std::vector<GameObject*>> GameObject::s_game_objects_by_name = std::unordered_map<std::string, std::vector<GameObject*>>();
 
 GameObject* GameObject::getGameObjectById(int id)
 {

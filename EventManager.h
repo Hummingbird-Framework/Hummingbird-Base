@@ -61,9 +61,10 @@ namespace hb
 			int id;
 		};
 
-		template <typename Event>
-		ListenerId<Event> listen(std::function<void(const Event&)>&& listener)
+		template <typename Listener>
+		ListenerId<typename detail::traits<Listener>::type> listen(Listener&& listener)
 		{
+			typedef typename detail::traits<Listener>::type Event;
 			detail::EventManager<Event>& em = *this;
 			ListenerId<Event> ret;
 			ret.id = em.listen(std::move(listener));
@@ -78,10 +79,10 @@ namespace hb
 		}
 
 		template <typename Event>
-		void ignore(int id)
+		void ignore(const ListenerId<Event>& id)
 		{
 			detail::EventManager<Event>& em = *this;
-			em.ignore(id);
+			em.ignore(id.id);
 		}
 	};
 }
