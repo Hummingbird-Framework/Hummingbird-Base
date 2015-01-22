@@ -41,8 +41,11 @@ namespace hb
 		// Release a Resource resource with identifier id
 		void release(int id)
 		{
-			ResourceInfo& ti = m_info_table.find(id)->second;
-			if(--ti.count == 0)
+			auto i = m_info_table.find(id);
+			if (i == m_info_table.end())
+				return;
+			ResourceInfo& ti = i->second;
+			if (--ti.count == 0)
 			{
 				m_id_table.erase(ti.it);
 				m_info_table.erase(id);
@@ -52,7 +55,10 @@ namespace hb
 		// Release all Resource resources with identifier id
 		void releaseAll(int id)
 		{
-			ResourceInfo& ti = m_info_table.find(id)->second;
+			auto i = m_info_table.find(id);
+			if (i == m_info_table.end())
+				return;
+			ResourceInfo& ti = i->second;
 			m_id_table.erase(ti.it);
 			m_info_table.erase(id);
 			assert(m_id_table.size() == m_info_table.size());
