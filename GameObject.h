@@ -1,6 +1,8 @@
 #ifndef HB_GAME_OBJECT_H
 #define HB_GAME_OBJECT_H
 #include <vector>
+#include <string>
+#include <unordered_map>
 #include "Transform.h"
 
 namespace hb
@@ -30,12 +32,24 @@ namespace hb
 			bool m_relative;
 		};
 
+		static GameObject* getGameObjectById(int id);
+		static const std::vector<GameObject*>* getGameObjectsByName(const std::string& name);
+
 		GameObject();
 		~GameObject();
+		int getIdentifier() const;
+		const std::string& getName() const;
+		void setName(const std::string& name);
 		void update();
 		void addComponent(Component* component);
 
 	private:
+		static int s_game_object_identifier;
+		static std::unordered_map<int, GameObject*> s_game_objects_by_id;
+		static std::unordered_map<std::string, std::vector<GameObject*>> s_game_objects_by_name;
+
+		int m_identifier;
+		std::string m_name;
 		std::vector<Component*> m_components;
 	};
 }
