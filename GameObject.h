@@ -34,6 +34,7 @@ namespace hb
 
 		static GameObject* getGameObjectById(int id);
 		static const std::vector<GameObject*>* getGameObjectsByName(const std::string& name);
+		static void destroyAll();
 
 		GameObject();
 		~GameObject();

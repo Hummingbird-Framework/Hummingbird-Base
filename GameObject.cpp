@@ -24,6 +24,16 @@ const std::vector<GameObject*>* GameObject::getGameObjectsByName(const std::stri
 }
 
 
+void GameObject::destroyAll()
+{
+	std::vector<std::pair<int, GameObject*>> v(s_game_objects_by_id.begin(), s_game_objects_by_id.end());
+	s_game_objects_by_id.clear();
+	s_game_objects_by_name.clear();
+	for (std::pair<int, GameObject*> go : v)
+		delete go.second;
+}
+
+
 GameObject::GameObject():
 Transform()
 {
@@ -38,6 +48,7 @@ GameObject::~GameObject()
 		delete component;
 
 	s_game_objects_by_id.erase(m_identifier);
+
 	auto s = s_game_objects_by_name.find(m_name);
 	if (s != s_game_objects_by_name.end())
 	{
@@ -48,6 +59,10 @@ GameObject::~GameObject()
 				s->second.erase(i);
 				i = s->second.end();
 			}
+		}
+		if (s->second.size() == 0)
+		{
+			s_game_objects_by_name.erase(m_name);
 		}
 	}
 }
@@ -79,20 +94,27 @@ void GameObject::setName(const std::string& name)
 				i = s->second.end();
 			}
 		}
+		if (s->second.size() == 0)
+		{
+			s_game_objects_by_name.erase(m_name);
+		}
 	}
 
 	// Add to new name group
-	m_name = name;
-	auto go_group = s_game_objects_by_name.find(name);
-	if (go_group == s_game_objects_by_name.end())
+	if (name != "")
 	{
-		std::vector<GameObject*> go_vect;
-		go_vect.push_back(this);
-		s_game_objects_by_name.insert(std::pair<std::string, std::vector<GameObject*>>(m_name, go_vect));
-	}
-	else
-	{
-		go_group->second.push_back(this);
+		m_name = name;
+		auto go_group = s_game_objects_by_name.find(name);
+		if (go_group == s_game_objects_by_name.end())
+		{
+			std::vector<GameObject*> go_vect;
+			go_vect.push_back(this);
+			s_game_objects_by_name.insert(std::pair<std::string, std::vector<GameObject*>>(m_name, go_vect));
+		}
+		else
+		{
+			go_group->second.push_back(this);
+		}
 	}
 }
 
