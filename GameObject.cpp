@@ -37,7 +37,19 @@ GameObject::~GameObject()
 	for (Component* component : m_components)
 		delete component;
 
-	// TODO: Falta quitar el objeto de la pool cuando se destruye
+	s_game_objects_by_id.erase(m_identifier);
+	auto s = s_game_objects_by_name.find(m_name);
+	if (s != s_game_objects_by_name.end())
+	{
+		for (std::vector<GameObject*>::iterator i = s->second.begin(); i != s->second.end(); ++i)
+		{
+			if (*i == this)
+			{
+				s->second.erase(i);
+				i = s->second.end();
+			}
+		}
+	}
 }
 
 
@@ -55,6 +67,21 @@ const std::string& GameObject::getName() const
 
 void GameObject::setName(const std::string& name)
 {
+	// Remove from existing name group
+	auto s = s_game_objects_by_name.find(m_name);
+	if (s != s_game_objects_by_name.end())
+	{
+		for (std::vector<GameObject*>::iterator i = s->second.begin(); i != s->second.end(); ++i)
+		{
+			if (*i == this)
+			{
+				s->second.erase(i);
+				i = s->second.end();
+			}
+		}
+	}
+
+	// Add to new name group
 	m_name = name;
 	auto go_group = s_game_objects_by_name.find(name);
 	if (go_group == s_game_objects_by_name.end())
