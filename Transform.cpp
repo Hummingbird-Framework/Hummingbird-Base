@@ -2,10 +2,9 @@
 using namespace hb;
 
 Transform::Transform():
-m_position(Vector2d()),
-m_scale(Vector2d(1, 1)),
-m_z_index(0),
-m_rotation_angle(0)
+m_position(Vector3d()),
+m_scale(Vector3d(1, 1, 1)),
+m_rotation_angle(Vector3d())
 {}
 
 
@@ -13,49 +12,37 @@ Transform::~Transform()
 {}
 
 
-const Vector2d& Transform::getPosition() const
+const Vector3d& Transform::getPosition() const
 {
 	return m_position;
 }
 
 
-void Transform::setPosition(const Vector2d& position)
+void Transform::setPosition(const Vector3d& position)
 {
 	m_position = position;
 }
 
 
-double Transform::getZIndex() const
-{
-	return m_z_index;
-}
-
-
-void Transform::setZIndex(double z_index)
-{
-	m_z_index = z_index;
-}
-
-
-double Transform::getRotation() const
+const Vector3d& Transform::getRotation() const
 {
 	return m_rotation_angle;
 }
 
 
-void Transform::setRotation(double angle)
+void Transform::setRotation(const Vector3d& angle)
 {
 	m_rotation_angle = angle;
 }
 
 
-const Vector2d& Transform::getScale() const
+const Vector3d& Transform::getScale() const
 {
 	return m_scale;
 }
 
 
-void Transform::setScale(const Vector2d& scale)
+void Transform::setScale(const Vector3d& scale)
 {
 	m_scale = scale;
 }
