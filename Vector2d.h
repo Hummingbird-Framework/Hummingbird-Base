@@ -3,11 +3,13 @@
 
 namespace hb
 {
-	struct Vector2d
+	class Vector2d
 	{
+	public:
 		double x, y;
 		Vector2d(): x(0), y(0){};
 		Vector2d(double x, double y): x(x), y(y){};
+		Vector2d(const Vector2d& v): x(v.x), y(v.y){};
 	};
 	
 }
