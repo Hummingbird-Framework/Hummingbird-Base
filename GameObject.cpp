@@ -36,6 +36,23 @@ void GameObject::destroyAll()
 }
 
 
+void GameObject::updateAll()
+{
+	for (std::unordered_map<int, GameObject*>::iterator it = s_game_objects_by_id.begin(); it != s_game_objects_by_id.end(); it++)
+	{
+		it->second->preUpdate();
+	}
+	for (std::unordered_map<int, GameObject*>::iterator it = s_game_objects_by_id.begin(); it != s_game_objects_by_id.end(); it++)
+	{
+		it->second->update();
+	}
+	for (std::unordered_map<int, GameObject*>::iterator it = s_game_objects_by_id.begin(); it != s_game_objects_by_id.end(); it++)
+	{
+		it->second->postUpdate();
+	}
+}
+
+
 GameObject::GameObject():
 Transform()
 {
@@ -121,12 +138,22 @@ void GameObject::setName(const std::string& name)
 }
 
 
-void GameObject::update()
+void GameObject::preUpdate()
 {
 	for (Component* component : m_components)
 		component->preUpdate();
+}
+
+
+void GameObject::update()
+{
 	for (Component* component : m_components)
 		component->update();
+}
+
+
+void GameObject::postUpdate()
+{
 	for (Component* component : m_components)
 		component->postUpdate();
 }

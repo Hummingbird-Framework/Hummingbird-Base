@@ -35,13 +35,16 @@ namespace hb
 		static GameObject* getGameObjectById(int id);
 		static const std::vector<GameObject*>* getGameObjectsByName(const std::string& name);
 		static void destroyAll();
+		static void updateAll();
 
 		GameObject();
 		~GameObject();
 		int getIdentifier() const;
 		const std::string& getName() const;
 		void setName(const std::string& name);
+		void preUpdate();
 		void update();
+		void postUpdate();
 		void addComponent(Component* component);
 		template <typename ComponentType>
 		std::vector<Component*> getComponents() const
