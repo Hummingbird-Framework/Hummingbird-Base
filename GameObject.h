@@ -43,6 +43,17 @@ namespace hb
 		void setName(const std::string& name);
 		void update();
 		void addComponent(Component* component);
+		template <typename ComponentType>
+		std::vector<Component*> getComponents() const
+		{
+			std::vector<Component*> v;
+			for (Component* component : m_components)
+			{
+				if (dynamic_cast<ComponentType*>(component))
+					v.push_back(component);
+			}
+			return v;
+		}
 
 	private:
 		static int s_game_object_identifier;
