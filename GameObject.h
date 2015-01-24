@@ -33,11 +33,12 @@ namespace hb
 		};
 
 		static GameObject* getGameObjectById(int id);
-		static const std::vector<GameObject*>* getGameObjectsByName(const std::string& name);
+		static const std::vector<GameObject*>& getGameObjectsByName(const std::string& name);
 		static void destroyAll();
 		static void updateAll();
 
 		GameObject();
+		GameObject(const Vector3d& init_pos);
 		~GameObject();
 		int getIdentifier() const;
 		const std::string& getName() const;
@@ -47,13 +48,13 @@ namespace hb
 		void postUpdate();
 		void addComponent(Component* component);
 		template <typename ComponentType>
-		std::vector<Component*> getComponents() const
+		std::vector<ComponentType*> getComponents() const
 		{
-			std::vector<Component*> v;
+			std::vector<ComponentType*> v;
 			for (Component* component : m_components)
 			{
 				if (dynamic_cast<ComponentType*>(component))
-					v.push_back(component);
+					v.push_back(dynamic_cast<ComponentType*>(component));
 			}
 			return v;
 		}

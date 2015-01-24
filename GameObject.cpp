@@ -16,13 +16,13 @@ GameObject* GameObject::getGameObjectById(int id)
 }
 
 
-const std::vector<GameObject*>* GameObject::getGameObjectsByName(const std::string& name)
+const std::vector<GameObject*>& GameObject::getGameObjectsByName(const std::string& name)
 {
 	const std::vector<GameObject*>* v = nullptr;
 	auto s = s_game_objects_by_name.find(name);
 	if (s != s_game_objects_by_name.end())
 		v = &s->second;
-	return v;
+	return *v;
 }
 
 
@@ -55,6 +55,14 @@ void GameObject::updateAll()
 
 GameObject::GameObject():
 Transform()
+{
+	m_identifier = s_game_object_identifier++;	
+	s_game_objects_by_id.insert(std::pair<int, GameObject*>(m_identifier, this));
+}
+
+
+GameObject::GameObject(const Vector3d& init_pos):
+Transform(init_pos)
 {
 	m_identifier = s_game_object_identifier++;	
 	s_game_objects_by_id.insert(std::pair<int, GameObject*>(m_identifier, this));
