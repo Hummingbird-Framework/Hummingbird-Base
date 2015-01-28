@@ -64,6 +64,7 @@ namespace hb
 		void preUpdate();
 		void update();
 		void postUpdate();
+		void destroy();
 		void addComponent(Component* component);
 		template <typename ComponentType>
 		std::vector<ComponentType*> getComponents() const
@@ -82,6 +83,7 @@ namespace hb
 		static std::unordered_map<int, GameObject*> s_game_objects_by_id;
 		static std::unordered_map<std::string, std::vector<GameObject*>> s_game_objects_by_name;
 
+		bool m_marked_to_destroy;
 		int m_identifier;
 		std::string m_name;
 		std::vector<Component*> m_components;

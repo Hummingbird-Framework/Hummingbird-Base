@@ -39,6 +39,7 @@ void GameObject::destroyAll()
 
 void GameObject::updateAll()
 {
+	std::vector<GameObject*> to_destroy;
 	for (std::unordered_map<int, GameObject*>::iterator it = s_game_objects_by_id.begin(); it != s_game_objects_by_id.end(); it++)
 	{
 		it->second->preUpdate();
@@ -46,6 +47,14 @@ void GameObject::updateAll()
 	for (std::unordered_map<int, GameObject*>::iterator it = s_game_objects_by_id.begin(); it != s_game_objects_by_id.end(); it++)
 	{
 		it->second->update();
+		if (it->second->m_marked_to_destroy)
+		{
+			to_destroy.push_back(it->second);
+		}
+	}
+	for (GameObject* go : to_destroy)
+	{
+		delete go;
 	}
 	for (std::unordered_map<int, GameObject*>::iterator it = s_game_objects_by_id.begin(); it != s_game_objects_by_id.end(); it++)
 	{
@@ -53,20 +62,19 @@ void GameObject::updateAll()
 	}
 }
 
-GameObject::GameObject():
-Transform()
-{
-	m_identifier = s_game_object_identifier++;	
-	s_game_objects_by_id.insert(std::pair<int, GameObject*>(m_identifier, this));
-}
-
 
 GameObject::GameObject(const Vector3d& init_pos):
-Transform(init_pos)
+Transform(init_pos),
+m_marked_to_destroy(false)
 {
 	m_identifier = s_game_object_identifier++;	
 	s_game_objects_by_id.insert(std::pair<int, GameObject*>(m_identifier, this));
 }
+
+
+GameObject::GameObject():
+GameObject(Vector3d())
+{}
 
 
 GameObject::~GameObject()
@@ -166,6 +174,12 @@ void GameObject::postUpdate()
 {
 	for (Component* component : m_components)
 		component->postUpdate();
+}
+
+
+void GameObject::destroy()
+{
+	m_marked_to_destroy = true;
 }
 
 
