@@ -19,7 +19,7 @@ namespace hb
 				m_game_object = nullptr;
 				m_relative = true;
 			}
-			virtual ~Component(){}
+			inline virtual ~Component(){}
 			virtual void preUpdate(){}
 			virtual void update(){}
 			virtual void postUpdate(){}
@@ -33,13 +33,31 @@ namespace hb
 		};
 
 		static GameObject* getGameObjectById(int id);
-		static const std::vector<GameObject*>& getGameObjectsByName(const std::string& name);
+		static std::vector<GameObject*> getGameObjectsByName(const std::string& name);
+		template <typename T>
+		static std::vector<T*> getGameObjectsByName(const std::string& name)
+		{
+			std::vector<GameObject*> v;
+			std::vector<T*> ts;
+			
+			auto s = s_game_objects_by_name.find(name);
+			if (s != s_game_objects_by_name.end())
+				v = s->second;
+
+			for (GameObject* go : v)
+			{
+				T* t = dynamic_cast<T*>(go);
+				if (t != nullptr)
+					ts.push_back(t);
+			}
+			return ts;
+		}
 		static void destroyAll();
 		static void updateAll();
 
 		GameObject();
 		GameObject(const Vector3d& init_pos);
-		~GameObject();
+		virtual ~GameObject();
 		int getIdentifier() const;
 		const std::string& getName() const;
 		void setName(const std::string& name);
