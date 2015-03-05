@@ -3,8 +3,9 @@
 #include <vector>
 #include <string>
 #include <unordered_map>
+#include <initializer_list>
 #include "Transform.h"
-
+// TODO: Add to game object a std::unordered_map<std::string, union{.....}> to store gameobject variables. Make getters too.
 namespace hb
 {
 	class GameObject : public Transform
@@ -20,6 +21,7 @@ namespace hb
 				m_relative = true;
 			}
 			inline virtual ~Component(){}
+			virtual void init(){}
 			virtual void preUpdate(){}
 			virtual void update(){}
 			virtual void postUpdate(){}
@@ -56,7 +58,7 @@ namespace hb
 		static void updateAll();
 
 		GameObject();
-		GameObject(const Vector3d& init_pos);
+		GameObject(std::initializer_list<Component*> components);
 		virtual ~GameObject();
 		int getIdentifier() const;
 		const std::string& getName() const;
@@ -66,6 +68,16 @@ namespace hb
 		void postUpdate();
 		void destroy();
 		void addComponent(Component* component);
+		template <typename ComponentType>
+		ComponentType* getComponent() const
+		{
+			for (Component* component : m_components)
+			{
+				if (dynamic_cast<ComponentType*>(component))
+					return dynamic_cast<ComponentType*>(component);
+			}
+			return nullptr;
+		}
 		template <typename ComponentType>
 		std::vector<ComponentType*> getComponents() const
 		{

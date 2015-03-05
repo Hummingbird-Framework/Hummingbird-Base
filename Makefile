@@ -1,5 +1,4 @@
 CC        := g++
-ARCH      := $(shell getconf LONG_BIT)
 
 CFLAGS    := -std=c++11 -Wall
 

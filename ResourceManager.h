@@ -5,10 +5,17 @@
 
 namespace hb
 {
-	template <typename Resource, typename ResourceId, typename Hash = std::hash<ResourceId>>
+	template <typename ManagerType, typename Resource, typename ResourceId, typename Hash = std::hash<ResourceId>>
 	class ResourceManager
 	{
 	public:
+
+		static ManagerType* instance()
+		{
+			if (s_instance == nullptr)
+				s_instance = new ManagerType();
+			return s_instance;
+		}
 		// Constructor
 		ResourceManager()
 		{
@@ -39,7 +46,7 @@ namespace hb
 			return ret;
 		}
 		// Release a Resource resource with identifier id
-		void release(int id)
+		virtual void release(int id)
 		{
 			auto i = m_info_table.find(id);
 			if (i == m_info_table.end())
@@ -66,7 +73,23 @@ namespace hb
 		// Get Resource with identifier id
 		const Resource& get(int id) const
 		{
-			return m_info_table.find(id)->second.data;
+			auto it = m_info_table.find(id);
+			assert(it != m_info_table.end());
+			return it->second.data;
+		}
+		// Get Resource with identifier id
+		Resource& get(int id)
+		{
+			auto it = m_info_table.find(id);
+			assert(it != m_info_table.end());
+			return it->second.data;
+		}
+		// Get ResourceId of resource with identifier id 
+		const ResourceId& getId(int id) const
+		{
+			auto it = m_info_table.find(id);
+			assert(it != m_info_table.end());
+			return it->second.it->first;
 		}
 		// Returns wether the Resource resource with identifier id is loaded
 		bool isLoaded(int id) const
@@ -81,12 +104,21 @@ namespace hb
 		// Returns number of active requests for resource id
 		int countResourceUsage(int id) const
 		{
-			return m_info_table.find(id)->second.count;
+			int count = 0;
+			auto it = m_info_table.find(id);
+			if (it != m_info_table.end())
+				count = it->second.count;
+			return count;
 		}
-		// Returns total number of resources loaded
+		// Returns number of resources currently loaded
 		int size() const
 		{
 			return m_id_table.size();
+		}
+		// Returns number of all resources ever loaded
+		int resourceCount() const
+		{
+			return m_resource_count;
 		}
 		// Release all resources
 		void clear()
@@ -97,6 +129,7 @@ namespace hb
 		}
 
 	private:
+		static ManagerType* s_instance;
 		struct ResourceInfo
 		{
 			int id, count;
@@ -109,4 +142,6 @@ namespace hb
 		std::unordered_map<int, ResourceInfo> m_info_table;
 	};
 }
+template <typename ManagerType, typename Resource, typename ResourceId, typename Hash>
+ManagerType* hb::ResourceManager<ManagerType, Resource, ResourceId, Hash>::s_instance = nullptr;
 #endif
