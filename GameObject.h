@@ -1,9 +1,10 @@
-
 #ifndef HB_GAME_OBJECT_H
 #define HB_GAME_OBJECT_H
+#include <cassert>
 #include <vector>
 #include <string>
 #include <unordered_map>
+#include <typeindex>
 #include <initializer_list>
 #include "Transform.h"
 
@@ -20,7 +21,7 @@ namespace hb
 			{
 				m_game_object = nullptr;
 			}
-			inline virtual ~Component(){}
+			virtual ~Component(){}
 			virtual void init(){}
 			virtual void preUpdate(){}
 			virtual void update(){}
@@ -40,7 +41,7 @@ namespace hb
 
 		GameObject();
 		GameObject(const std::initializer_list<Component*>& components);
-		virtual ~GameObject();
+		~GameObject();
 		int getIdentifier() const;
 		const std::string& getName() const;
 		void setName(const std::string& name);
@@ -62,13 +63,15 @@ namespace hb
 			return nullptr;
 		}
 		template <typename ComponentType>
-		void getComponents(std::vector<ComponentType*>& out) const
+		std::vector<ComponentType*> getComponents() const
 		{
+			std::vector<ComponentType*> r;
 			for (Component* component : m_components)
 			{
 				if (dynamic_cast<ComponentType*>(component))
-					out.push_back(dynamic_cast<ComponentType*>(component));
+					r.push_back(dynamic_cast<ComponentType*>(component));
 			}
+			return r;
 		}
 
 	private:

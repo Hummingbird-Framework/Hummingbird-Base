@@ -6,7 +6,7 @@
 
 namespace hb
 {
-	class FunctionComponent : public GameObject::Component, public hb::DataRepository
+	class FunctionComponent : public GameObject::Component
 	{
 	public:
 		FunctionComponent();
@@ -15,7 +15,6 @@ namespace hb
 		void setUpdateFunction(std::function<void(void)> update);
 		void setPostUpdateFunction(std::function<void(void)> post_update);
 		void setDestroyFunction(std::function<void(void)> destroy);
-		void run(std::function<void(void)> method);
 		virtual void preUpdate() override;
 		virtual void update() override;
 		virtual void postUpdate() override;
