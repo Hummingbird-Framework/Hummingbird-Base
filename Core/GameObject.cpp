@@ -12,20 +12,16 @@ GameObject* GameObject::getGameObjectById(int id)
 	auto s = s_game_objects_by_id.find(id);
 	if (s != s_game_objects_by_id.end())
 		go = s->second;
-
+	assert(go != nullptr);
 	return go;
 }
 
 
-std::vector<GameObject*> GameObject::getGameObjectsByName(const std::string& name)
+const std::vector<GameObject*>& GameObject::getGameObjectsByName(const std::string& name)
 {
-	std::vector<GameObject*> v;
-	
-	auto s = s_game_objects_by_name.find(name);
-	if (s != s_game_objects_by_name.end())
-		v = s->second;
-	return v;
+	return s_game_objects_by_name[name];
 }
+
 
 void GameObject::destroyAll()
 {
@@ -42,10 +38,12 @@ void GameObject::updateAll()
 	std::vector<GameObject*> to_destroy;
 	for (std::unordered_map<int, GameObject*>::iterator it = s_game_objects_by_id.begin(); it != s_game_objects_by_id.end(); it++)
 	{
+		if (not it->second->isActive()) continue;
 		it->second->preUpdate();
 	}
 	for (std::unordered_map<int, GameObject*>::iterator it = s_game_objects_by_id.begin(); it != s_game_objects_by_id.end(); it++)
 	{
+		if (not it->second->isActive()) continue;
 		it->second->update();
 		if (it->second->m_marked_to_destroy)
 		{
@@ -58,23 +56,28 @@ void GameObject::updateAll()
 	}
 	for (std::unordered_map<int, GameObject*>::iterator it = s_game_objects_by_id.begin(); it != s_game_objects_by_id.end(); it++)
 	{
+		if (not it->second->isActive()) continue;
 		it->second->postUpdate();
 	}
 }
 
 
-GameObject::GameObject(const Vector3d& init_pos):
-Transform(init_pos),
+GameObject::GameObject():
+Transform(),
+m_active(true),
 m_marked_to_destroy(false)
 {
-	m_identifier = s_game_object_identifier++;	
+	m_identifier = s_game_object_identifier++;
 	s_game_objects_by_id.insert(std::pair<int, GameObject*>(m_identifier, this));
 }
 
 
-GameObject::GameObject():
-GameObject(Vector3d())
-{}
+GameObject::GameObject(const std::initializer_list<GameObject::Component*>& components):
+GameObject()
+{
+	for (Component* c : components)
+		addComponent(c);
+}
 
 
 GameObject::~GameObject()
@@ -156,6 +159,18 @@ void GameObject::setName(const std::string& name)
 }
 
 
+void GameObject::setActive(bool active)
+{
+	m_active = active;
+}
+
+
+bool GameObject::isActive() const
+{
+	return m_active;
+}
+
+
 void GameObject::preUpdate()
 {
 	for (Component* component : m_components)
@@ -185,6 +200,8 @@ void GameObject::destroy()
 
 void GameObject::addComponent(Component* component)
 {
+	assert(component != nullptr);
 	m_components.push_back(component);
-	m_components[m_components.size() - 1]->setGameObject(this);
+	component->setGameObject(this);
+	component->init();
 }
