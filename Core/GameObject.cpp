@@ -5,6 +5,7 @@ using namespace hb;
 int GameObject::s_game_object_identifier = 0;
 std::unordered_map<int, GameObject*> GameObject::s_game_objects_by_id = std::unordered_map<int, GameObject*>();
 std::unordered_map<std::string, std::vector<GameObject*>> GameObject::s_game_objects_by_name = std::unordered_map<std::string, std::vector<GameObject*>>();
+DataRepository GameObject::s_data_repository;
 
 void GameObject::setNextGameObjectId(int id)
 {
@@ -71,7 +72,8 @@ void GameObject::updateAll()
 GameObject::GameObject():
 Transform(),
 m_active(true),
-m_marked_to_destroy(false)
+m_marked_to_destroy(false),
+m_message_manager()
 {
 	// Find next available id
 	while (s_game_objects_by_id.find(s_game_object_identifier) != s_game_objects_by_id.end())
@@ -93,7 +95,8 @@ GameObject()
 GameObject::GameObject(int id):
 Transform(),
 m_active(true),
-m_marked_to_destroy(false)
+m_marked_to_destroy(false),
+m_message_manager()
 {
 	hb_assert(s_game_objects_by_id.find(id) == s_game_objects_by_id.end(), "GameObject with id " << id << "already exists.");
 	m_identifier = id;
@@ -103,33 +106,17 @@ m_marked_to_destroy(false)
 
 GameObject::~GameObject()
 {
+	m_message_manager.message("destroy", s_data_repository);
 	for (Component* component : m_components)
 		delete component;
 	m_components.clear();
 
+	setName("");
 	s_game_objects_by_id.erase(m_identifier);
-
-	auto s = s_game_objects_by_name.find(m_name);
-	if (s != s_game_objects_by_name.end())
-	{
-		bool done = false;
-		for (std::vector<GameObject*>::iterator i = s->second.begin(); i != s->second.end() and not done; ++i)
-		{
-			if ((*i)->getIdentifier() == getIdentifier())
-			{
-				done = true;
-				s->second.erase(i);
-			}
-		}
-		if (done and s->second.size() == 0)
-		{
-			s_game_objects_by_name.erase(m_name);
-		}
-	}
 }
 
 
-int GameObject::getIdentifier() const
+int GameObject::getId() const
 {
 	return m_identifier;
 }
@@ -189,21 +176,30 @@ bool GameObject::isActive() const
 void GameObject::preUpdate()
 {
 	for (Component* component : m_components)
-		component->preUpdate();
+		if (component->isActive())
+			component->preUpdate();
+
+	m_message_manager.message("pre-update", s_data_repository);
 }
 
 
 void GameObject::update()
 {
 	for (Component* component : m_components)
-		component->update();
+		if (component->isActive())
+			component->update();
+
+	m_message_manager.message("update", s_data_repository);
 }
 
 
 void GameObject::postUpdate()
 {
 	for (Component* component : m_components)
-		component->postUpdate();
+		if (component->isActive())
+			component->postUpdate();
+
+	m_message_manager.message("post-update", s_data_repository);
 }
 
 
@@ -226,4 +222,10 @@ void GameObject::addComponents(const std::vector<Component*>& components)
 {
 	for (Component* c : components)
 		addComponent(c);
+}
+
+
+void GameObject::sendMessage(const std::string& name, DataRepository& data)
+{
+	m_message_manager.message(name, data);
 }
