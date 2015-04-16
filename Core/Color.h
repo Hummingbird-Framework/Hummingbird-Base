@@ -1,7 +1,7 @@
 #ifndef HB_COLOR_h
 #define HB_COLOR_h
 
-namespace hb
+namespace bienne
 {
 	struct Color {
 		float r; //!< Red component of the color
@@ -54,7 +54,7 @@ namespace hb
 #endif
 
 /**
- * \struct hb::Color
+ * \struct bienne::Color
  * \ingroup core
  * 
  * \brief A color represented in the RGBA format.

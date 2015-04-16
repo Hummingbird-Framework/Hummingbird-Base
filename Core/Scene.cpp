@@ -1,5 +1,5 @@
 #include "Game.h"
-using namespace hb;
+using namespace bienne;
 
 Game::Scene::Scene(const std::string& name, std::function<void(void)>&& init)
 {

@@ -3,7 +3,7 @@
 #include <chrono>
 #include "Time.h"
 
-namespace hb
+namespace bienne
 {
 	class Clock
 	{
@@ -34,10 +34,10 @@ namespace hb
 		  This is usefull for getting precise delta times without having 
 		  time overhead for having to call two methods:
 		  \code
-		  hb::Clock clk;
+          bienne::Clock clk;
 		  while(game_is_running)
 		  {
-		      hb::Time deltaTime = clk.reset();
+              bienne::Time deltaTime = clk.reset();
 		      ... // Game code
 		  }
 		  \endcode
@@ -53,7 +53,7 @@ namespace hb
 #endif
 
 /**
- * \class hb::Clock
+ * \class bienne::Clock
  * \ingroup core
  * \brief A class for measuring Time intervals.
  */

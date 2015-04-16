@@ -4,7 +4,7 @@
 #include "Vector2d.h"
 #include "Math.h"
 
-namespace hb
+namespace bienne
 {
 	/*!
 	  \class Vector3d
@@ -107,16 +107,16 @@ namespace hb
 	
 }
 
-hb::Vector3d operator -(const hb::Vector3d& right);
-hb::Vector3d& operator +=(hb::Vector3d& left, const hb::Vector3d& right);
-hb::Vector3d& operator -=(hb::Vector3d& left, const hb::Vector3d& right);
-hb::Vector3d operator +(const hb::Vector3d& left, const hb::Vector3d& right);
-hb::Vector3d operator -(const hb::Vector3d& left, const hb::Vector3d& right);
-hb::Vector3d operator *(const hb::Vector3d& left, double right);
-hb::Vector3d operator *(double left, const hb::Vector3d& right);
-hb::Vector3d& operator *=(hb::Vector3d& left, double right);
-hb::Vector3d operator /(const hb::Vector3d& left, double right);
-hb::Vector3d& operator /=(hb::Vector3d& left, double right);
-bool operator ==(const hb::Vector3d& left, const hb::Vector3d& right);
-bool operator !=(const hb::Vector3d& left, const hb::Vector3d& right);
+bienne::Vector3d operator -(const bienne::Vector3d& right);
+bienne::Vector3d& operator +=(bienne::Vector3d& left, const bienne::Vector3d& right);
+bienne::Vector3d& operator -=(bienne::Vector3d& left, const bienne::Vector3d& right);
+bienne::Vector3d operator +(const bienne::Vector3d& left, const bienne::Vector3d& right);
+bienne::Vector3d operator -(const bienne::Vector3d& left, const bienne::Vector3d& right);
+bienne::Vector3d operator *(const bienne::Vector3d& left, double right);
+bienne::Vector3d operator *(double left, const bienne::Vector3d& right);
+bienne::Vector3d& operator *=(bienne::Vector3d& left, double right);
+bienne::Vector3d operator /(const bienne::Vector3d& left, double right);
+bienne::Vector3d& operator /=(bienne::Vector3d& left, double right);
+bool operator ==(const bienne::Vector3d& left, const bienne::Vector3d& right);
+bool operator !=(const bienne::Vector3d& left, const bienne::Vector3d& right);
 #endif

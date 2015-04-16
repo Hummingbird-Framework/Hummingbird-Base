@@ -1,5 +1,5 @@
 #include "FunctionComponent.h"
-using namespace hb;
+using namespace bienne;
 
 FunctionComponent::FunctionComponent()
 {
@@ -16,6 +16,6 @@ FunctionComponent::~FunctionComponent()
 
 void FunctionComponent::addListener(const std::string& name, std::function<void(DataRepository&)>&& listener)
 {
-	hb_assert(getGameObject() != nullptr, "Added listener to FunctionComponent before it being added to a GameObject.");
+    bienne_assert(getGameObject() != nullptr, "Added listener to FunctionComponent before it being added to a GameObject.");
 	addListenerToGameObject(name, std::move(listener));
 }

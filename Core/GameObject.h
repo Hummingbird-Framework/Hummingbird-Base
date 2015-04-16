@@ -12,7 +12,7 @@
 #include "MessageManager.h"
 #include "Transform.h"
 
-namespace hb
+namespace bienne
 {
 	/*!
 	  \brief Definition of the MessageManager used by GameObject
@@ -111,12 +111,12 @@ namespace hb
 		protected:
 			void addListenerToGameObject(const std::string& name, std::function<void(DataRepository&)>&& listener)
 			{
-				hb_assert(m_game_object != nullptr, "Accessing Component's GameObject before being assigned.");
+                bienne_assert(m_game_object != nullptr, "Accessing Component's GameObject before being assigned.");
 				getGameObject()->m_message_manager.listen(name, std::move(listener));
 			}
 			void ignoreToGameObject(const GameObjectMessageManager::ListenerId<DataRepository>& listener_id)
 			{
-				hb_assert(m_game_object != nullptr, "Accessing Component's GameObject before being assigned.");
+                bienne_assert(m_game_object != nullptr, "Accessing Component's GameObject before being assigned.");
 				getGameObject()->m_message_manager.ignore(listener_id);
 			}
 

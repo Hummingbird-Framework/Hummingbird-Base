@@ -3,7 +3,7 @@
 #include <unordered_map>
 #include "Log.h"
 
-namespace hb
+namespace bienne
 {
 	/*!
 	  \class ResourceManager
@@ -66,7 +66,7 @@ namespace hb
 				ti.data = resource;
 				m_info_table.insert(std::pair<int, ResourceInfo>(ret, ti));
 			}
-			hb_assert(m_id_table.size() == m_info_table.size(), "Resource management broke bad");
+			bienne_assert(m_id_table.size() == m_info_table.size(), "Resource management broke bad");
 			return ret;
 		}
 		/*!
@@ -87,7 +87,7 @@ namespace hb
 				m_id_table.erase(ti.it);
 				m_info_table.erase(id);
 			}
-			hb_assert(m_id_table.size() == m_info_table.size(), "Resource management broke bad");
+			bienne_assert(m_id_table.size() == m_info_table.size(), "Resource management broke bad");
 		}
 		/*!
 		  \brief Release all resources with identifier id.
@@ -103,7 +103,7 @@ namespace hb
 			ResourceInfo& ti = i->second;
 			m_id_table.erase(ti.it);
 			m_info_table.erase(id);
-			hb_assert(m_id_table.size() == m_info_table.size(), "Resource management broke bad");
+			bienne_assert(m_id_table.size() == m_info_table.size(), "Resource management broke bad");
 		}
 		/*!
 		  \brief Get resource with identifier id.
@@ -113,7 +113,7 @@ namespace hb
 		const ResourceType& get(int id) const
 		{
 			auto it = m_info_table.find(id);
-			hb_assert(it != m_info_table.end(), "Resource with id " << id << "does not exist.");
+			bienne_assert(it != m_info_table.end(), "Resource with id " << id << "does not exist.");
 			return it->second.data;
 		}
 		/*!
@@ -124,7 +124,7 @@ namespace hb
 		ResourceType& get(int id)
 		{
 			auto it = m_info_table.find(id);
-			hb_assert(it != m_info_table.end(), "Resource with id " << id << "does not exist.");
+			bienne_assert(it != m_info_table.end(), "Resource with id " << id << "does not exist.");
 			return it->second.data;
 		}
 		/*!
@@ -135,7 +135,7 @@ namespace hb
 		const ResourceId& getId(int id) const
 		{
 			auto it = m_info_table.find(id);
-			hb_assert(it != m_info_table.end(), "Resource with id " << id << "does not exist.");
+			bienne_assert(it != m_info_table.end(), "Resource with id " << id << "does not exist.");
 			return it->second.it->first;
 		}
 		/*!
@@ -224,5 +224,5 @@ namespace hb
 	};
 }
 template <typename ManagerType, typename ResourceType, typename ResourceId, typename Hash>
-ManagerType* hb::ResourceManager<ManagerType, ResourceType, ResourceId, Hash>::s_instance = nullptr;
+ManagerType* bienne::ResourceManager<ManagerType, ResourceType, ResourceId, Hash>::s_instance = nullptr;
 #endif

@@ -1,5 +1,5 @@
 #include "Clock.h"
-using namespace hb;
+using namespace bienne;
 Clock::Clock()
 {
 	m_time_point = std::chrono::high_resolution_clock::now();

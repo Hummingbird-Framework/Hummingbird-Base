@@ -3,7 +3,7 @@
 #include <functional>
 #include <vector>
 
-namespace hb
+namespace bienne
 {
 	namespace detail
 	{
