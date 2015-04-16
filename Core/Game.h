@@ -9,7 +9,7 @@
 #include "Plugin.h"
 #include "Log.h"
 
-namespace hb
+namespace bienne
 {
 	/*!
 	  \class Game

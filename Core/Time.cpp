@@ -1,5 +1,5 @@
 #include "Time.h"
-using namespace hb;
+using namespace bienne;
 
 Time Time::deltaTime = Time::microseconds(0);
 
@@ -56,151 +56,151 @@ Time Time::microseconds(long long microseconds)
 }
 
 
-bool operator ==(hb::Time left, hb::Time right)
+bool operator ==(bienne::Time left, bienne::Time right)
 {
 	return left.asMicroseconds() == right.asMicroseconds();
 }
 
 
-bool operator !=(hb::Time left, hb::Time right)
+bool operator !=(bienne::Time left, bienne::Time right)
 {
 	return left.asMicroseconds() != right.asMicroseconds();
 }
 
 
-bool operator <(hb::Time left, hb::Time right)
+bool operator <(bienne::Time left, bienne::Time right)
 {
 	return left.asMicroseconds() < right.asMicroseconds();
 }
 
 
-bool operator >(hb::Time left, hb::Time right)
+bool operator >(bienne::Time left, bienne::Time right)
 {
 	return left.asMicroseconds() > right.asMicroseconds();
 }
 
 
-bool operator <=(hb::Time left, hb::Time right)
+bool operator <=(bienne::Time left, bienne::Time right)
 {
 	return left.asMicroseconds() <= right.asMicroseconds();
 }
 
 
-bool operator >=(hb::Time left, hb::Time right)
+bool operator >=(bienne::Time left, bienne::Time right)
 {
 	return left.asMicroseconds() >= right.asMicroseconds();
 }
 
 
-hb::Time operator -(hb::Time right)
+bienne::Time operator -(bienne::Time right)
 {
 	return Time::microseconds(-right.asMicroseconds());
 }
 
 
-hb::Time operator +(hb::Time left, hb::Time right)
+bienne::Time operator +(bienne::Time left, bienne::Time right)
 {
 	return Time::microseconds(left.asMicroseconds() + right.asMicroseconds());
 }
 
 
-hb::Time & operator +=(hb::Time &left, hb::Time right)
+bienne::Time & operator +=(bienne::Time &left, bienne::Time right)
 {
 	left = left + right;
 	return left;
 }
 
 
-hb::Time operator -(hb::Time left, hb::Time right)
+bienne::Time operator -(bienne::Time left, bienne::Time right)
 {
 	return Time::microseconds(left.asMicroseconds() - right.asMicroseconds());
 }
 
 
-hb::Time & operator -=(hb::Time &left, hb::Time right)
+bienne::Time & operator -=(bienne::Time &left, bienne::Time right)
 {
 	left = left - right;
 	return left;
 }
 
 
-hb::Time operator *(hb::Time left, double right)
+bienne::Time operator *(bienne::Time left, double right)
 {
 	return Time::microseconds(left.asMicroseconds() * right);
 }
 
 
-hb::Time operator *(hb::Time left, long long right)
+bienne::Time operator *(bienne::Time left, long long right)
 {
 	return Time::microseconds(left.asMicroseconds() * right);
 }
 
 
-hb::Time operator *(double left, hb::Time right)
+bienne::Time operator *(double left, bienne::Time right)
 {
 	return Time::microseconds(left * right.asMicroseconds());
 }
 
 
-hb::Time operator *(long long left, hb::Time right)
+bienne::Time operator *(long long left, bienne::Time right)
 {
 	return Time::microseconds(left * right.asMicroseconds());
 }
 
 
-hb::Time & operator *=(hb::Time &left, double right)
+bienne::Time & operator *=(bienne::Time &left, double right)
 {
 	left = left * right;
 	return left;
 }
 
 
-hb::Time & operator *=(hb::Time &left, long long right)
+bienne::Time & operator *=(bienne::Time &left, long long right)
 {
 	left = left * right;
 	return left;
 }
 
 
-hb::Time operator /(hb::Time left, double right)
+bienne::Time operator /(bienne::Time left, double right)
 {
 	return Time::microseconds(left.asMicroseconds() / right);
 }
 
 
-hb::Time operator /(hb::Time left, long long right)
+bienne::Time operator /(bienne::Time left, long long right)
 {
 	return Time::microseconds(left.asMicroseconds() / right);
 }
 
 
-hb::Time & operator /=(hb::Time &left, double right)
+bienne::Time & operator /=(bienne::Time &left, double right)
 {
 	left = left / right;
 	return left;
 }
 
 
-hb::Time & operator /=(hb::Time &left, long long right)
+bienne::Time & operator /=(bienne::Time &left, long long right)
 {
 	left = left / right;
 	return left;
 }
 
 
-double operator /(hb::Time left, hb::Time right)
+double operator /(bienne::Time left, bienne::Time right)
 {
 	return (double)left.asMicroseconds() / (double)right.asMicroseconds();
 }
 
 
-hb::Time operator %(hb::Time left, hb::Time right)
+bienne::Time operator %(bienne::Time left, bienne::Time right)
 {
 	return Time::microseconds(left.asMicroseconds() % right.asMicroseconds());
 }
 
 
-hb::Time & operator %=(hb::Time &left, hb::Time right)
+bienne::Time & operator %=(bienne::Time &left, bienne::Time right)
 {
 	left = left % right;
 	return left;

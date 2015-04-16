@@ -2,7 +2,7 @@
 #define HB_DATA_COMPONENT_H
 #include "GameObject.h"
 
-namespace hb
+namespace bienne
 {
 	/*!
 	  \class DataComponent

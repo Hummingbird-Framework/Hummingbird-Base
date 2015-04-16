@@ -4,7 +4,7 @@
 #include "GameObject.h"
 #include "DataRepository.h"
 
-namespace hb
+namespace bienne
 {
 	/*!
 	  \class FunctionComponent

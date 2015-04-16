@@ -4,7 +4,7 @@
 #include <string>
 #include <cstdlib>
 
-namespace hb
+namespace bienne
 {
 	/*!
 	  \class Vector2d
@@ -60,22 +60,22 @@ namespace hb
 	
 }
 
-hb::Vector2d operator -(const hb::Vector2d& right);
-hb::Vector2d& operator +=(hb::Vector2d& left, const hb::Vector2d& right);
-hb::Vector2d& operator -=(hb::Vector2d& left, const hb::Vector2d& right);
-hb::Vector2d operator +(const hb::Vector2d& left, const hb::Vector2d& right);
-hb::Vector2d operator -(const hb::Vector2d& left, const hb::Vector2d& right);
-hb::Vector2d operator *(const hb::Vector2d& left, double right);
-hb::Vector2d operator *(double left, const hb::Vector2d& right);
-hb::Vector2d& operator *=(hb::Vector2d& left, double right);
-hb::Vector2d operator /(const hb::Vector2d& left, double right);
-hb::Vector2d& operator /=(hb::Vector2d& left, double right);
-bool operator ==(const hb::Vector2d& left, const hb::Vector2d& right);
-bool operator !=(const hb::Vector2d& left, const hb::Vector2d& right);
+bienne::Vector2d operator -(const bienne::Vector2d& right);
+bienne::Vector2d& operator +=(bienne::Vector2d& left, const bienne::Vector2d& right);
+bienne::Vector2d& operator -=(bienne::Vector2d& left, const bienne::Vector2d& right);
+bienne::Vector2d operator +(const bienne::Vector2d& left, const bienne::Vector2d& right);
+bienne::Vector2d operator -(const bienne::Vector2d& left, const bienne::Vector2d& right);
+bienne::Vector2d operator *(const bienne::Vector2d& left, double right);
+bienne::Vector2d operator *(double left, const bienne::Vector2d& right);
+bienne::Vector2d& operator *=(bienne::Vector2d& left, double right);
+bienne::Vector2d operator /(const bienne::Vector2d& left, double right);
+bienne::Vector2d& operator /=(bienne::Vector2d& left, double right);
+bool operator ==(const bienne::Vector2d& left, const bienne::Vector2d& right);
+bool operator !=(const bienne::Vector2d& left, const bienne::Vector2d& right);
 #endif
 
 /**
- * \class hb::Vector2d
+ * \class bienne::Vector2d
  * \ingroup core
  *
  * A 2d vector of doubles

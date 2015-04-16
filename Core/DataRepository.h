@@ -3,7 +3,7 @@
 #include <string>
 #include <unordered_map>
 
-namespace hb
+namespace bienne
 {
 	/*!
 	  \class DataRepository

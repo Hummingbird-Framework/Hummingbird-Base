@@ -2,7 +2,7 @@
 #define HB_TRANSFORM_H
 #include "Vector3d.h"
 
-namespace hb
+namespace bienne
 {
 	/*!
 	  \class Transform

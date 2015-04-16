@@ -2,7 +2,7 @@
 #define HB_RESOURCE_H
 
 
-namespace hb
+namespace bienne
 {
 	/*!
 	  \class Resource

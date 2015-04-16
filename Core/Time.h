@@ -1,7 +1,7 @@
 #ifndef HB_TIME_H
 #define HB_TIME_H
 
-namespace hb
+namespace bienne
 {
 	/*!
 	  \class Time
@@ -57,28 +57,28 @@ namespace hb
 	};
 }
 
-bool operator ==(hb::Time left, hb::Time right);
-bool operator !=(hb::Time left, hb::Time right);
-bool operator <(hb::Time left, hb::Time right);
-bool operator >(hb::Time left, hb::Time right);
-bool operator <=(hb::Time left, hb::Time right);
-bool operator >=(hb::Time left, hb::Time right);
-hb::Time operator -(hb::Time right);
-hb::Time operator +(hb::Time left, hb::Time right);
-hb::Time& operator +=(hb::Time &left, hb::Time right);
-hb::Time operator -(hb::Time left, hb::Time right);
-hb::Time& operator -=(hb::Time &left, hb::Time right);
-hb::Time operator *(hb::Time left, double right);
-hb::Time operator *(hb::Time left, long long right);
-hb::Time operator *(double left, hb::Time right);
-hb::Time operator *(long long left, hb::Time right);
-hb::Time& operator *=(hb::Time &left, double right);
-hb::Time& operator *=(hb::Time &left, long long right);
-hb::Time operator /(hb::Time left, double right);
-hb::Time operator /(hb::Time left, long long right);
-hb::Time& operator /=(hb::Time &left, double right);
-hb::Time& operator /=(hb::Time &left, long long right);
-double operator /(hb::Time left, hb::Time right);
-hb::Time operator %(hb::Time left, hb::Time right);
-hb::Time& operator %=(hb::Time &left, hb::Time right);
+bool operator ==(bienne::Time left, bienne::Time right);
+bool operator !=(bienne::Time left, bienne::Time right);
+bool operator <(bienne::Time left, bienne::Time right);
+bool operator >(bienne::Time left, bienne::Time right);
+bool operator <=(bienne::Time left, bienne::Time right);
+bool operator >=(bienne::Time left, bienne::Time right);
+bienne::Time operator -(bienne::Time right);
+bienne::Time operator +(bienne::Time left, bienne::Time right);
+bienne::Time& operator +=(bienne::Time &left, bienne::Time right);
+bienne::Time operator -(bienne::Time left, bienne::Time right);
+bienne::Time& operator -=(bienne::Time &left, bienne::Time right);
+bienne::Time operator *(bienne::Time left, double right);
+bienne::Time operator *(bienne::Time left, long long right);
+bienne::Time operator *(double left, bienne::Time right);
+bienne::Time operator *(long long left, bienne::Time right);
+bienne::Time& operator *=(bienne::Time &left, double right);
+bienne::Time& operator *=(bienne::Time &left, long long right);
+bienne::Time operator /(bienne::Time left, double right);
+bienne::Time operator /(bienne::Time left, long long right);
+bienne::Time& operator /=(bienne::Time &left, double right);
+bienne::Time& operator /=(bienne::Time &left, long long right);
+double operator /(bienne::Time left, bienne::Time right);
+bienne::Time operator %(bienne::Time left, bienne::Time right);
+bienne::Time& operator %=(bienne::Time &left, bienne::Time right);
 #endif

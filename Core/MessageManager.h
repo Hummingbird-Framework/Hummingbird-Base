@@ -6,7 +6,7 @@
 #include <map>
 #include <vector>
 
-namespace hb
+namespace bienne
 {
 	namespace detail
 	{

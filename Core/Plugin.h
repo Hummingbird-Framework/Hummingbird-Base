@@ -4,7 +4,7 @@
 #include <map>
 #include "GameObject.h"
 
-namespace hb
+namespace bienne
 {
 	/*!
 	  \class Plugin

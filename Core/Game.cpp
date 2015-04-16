@@ -1,5 +1,5 @@
 #include "Game.h"
-using namespace hb;
+using namespace bienne;
 
 
 bool Game::s_game_running = false;
@@ -25,14 +25,14 @@ Game::~Game()
 
 void Game::addScene(Scene& scene)
 {
-	hb_assert(s_scenes.find(scene.getName()) == s_scenes.end(), "Scene with name `" << scene.getName() << "` already added.");
+	bienne_assert(s_scenes.find(scene.getName()) == s_scenes.end(), "Scene with name `" << scene.getName() << "` already added.");
 	s_scenes.insert(std::pair<std::string, Scene>(scene.getName(), scene));
 }
 
 
 void Game::addScene(Scene&& scene)
 {
-	hb_assert(s_scenes.find(scene.getName()) == s_scenes.end(), "Scene with name `" << scene.getName() << "` already added.");
+	bienne_assert(s_scenes.find(scene.getName()) == s_scenes.end(), "Scene with name `" << scene.getName() << "` already added.");
 	s_scenes.insert(std::pair<std::string, Scene>(scene.getName(), scene));
 }
 
@@ -40,7 +40,7 @@ void Game::addScene(Scene&& scene)
 void Game::setScene(const std::string& name)
 {
 	auto it = s_scenes.find(name);
-	hb_assert(it != s_scenes.end(), "Scene with name " << name << "does not exist.");
+	bienne_assert(it != s_scenes.end(), "Scene with name " << name << "does not exist.");
 	s_change_scene = true;
 	s_next_scene = it;
 }
@@ -50,7 +50,7 @@ void Game::changeScene()
 {
 	if (s_current_scene != s_scenes.end())
 		s_current_scene->second.exit();
-	hb::GameObject::destroyAll();
+	bienne::GameObject::destroyAll();
 	s_current_scene = s_next_scene;
 	s_change_scene = false;
 	s_current_scene->second.init();
@@ -59,16 +59,16 @@ void Game::changeScene()
 
 void Game::run()
 {
-	hb_assert(s_change_scene, "Initial Game scene not defined.");
+	bienne_assert(s_change_scene, "Initial Game scene not defined.");
 	s_game_running = true;
 
 	for (Plugin* p : s_plugins)
 		p->gameStart();
 
-	hb::Clock clk;
+	bienne::Clock clk;
 	while(s_game_running)
 	{
-		hb::Time::deltaTime = clk.reset();
+		bienne::Time::deltaTime = clk.reset();
 		if (s_change_scene)
 		{
 			changeScene();
@@ -78,7 +78,7 @@ void Game::run()
 		for (Plugin* p : s_plugins)
 			p->preUpdate();
 
-		hb::GameObject::updateAll();
+		bienne::GameObject::updateAll();
 
 		for (Plugin* p : s_plugins)
 			p->postUpdate();
@@ -92,7 +92,7 @@ void Game::run()
 		delete p;
 	}
 
-	hb::GameObject::destroyAll();
+	bienne::GameObject::destroyAll();
 }
 
 

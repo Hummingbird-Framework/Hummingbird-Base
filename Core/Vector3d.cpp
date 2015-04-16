@@ -1,5 +1,5 @@
 #include "Vector3d.h"
-using namespace hb;
+using namespace bienne;
 
 Vector3d Vector3d::rotatedXZ(double degrees) const
 {

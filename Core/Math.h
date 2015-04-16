@@ -3,7 +3,7 @@
 
 #define PI 3.14159265
 
-namespace hb
+namespace bienne
 {
 
 	inline double radToDeg(double rad)

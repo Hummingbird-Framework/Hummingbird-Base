@@ -1,6 +1,6 @@
 #include "GameObject.h"
 
-using namespace hb;
+using namespace bienne;
 
 int GameObject::s_game_object_identifier = 0;
 std::unordered_map<int, GameObject*> GameObject::s_game_objects_by_id = std::unordered_map<int, GameObject*>();
@@ -19,7 +19,7 @@ GameObject* GameObject::getGameObjectById(int id)
 	auto s = s_game_objects_by_id.find(id);
 	if (s != s_game_objects_by_id.end())
 		go = s->second;
-	hb_assert(go != nullptr, "GameObject with id " << id << "does not exist.");
+	bienne_assert(go != nullptr, "GameObject with id " << id << "does not exist.");
 	return go;
 }
 
@@ -98,7 +98,7 @@ m_active(true),
 m_marked_to_destroy(false),
 m_message_manager()
 {
-	hb_assert(s_game_objects_by_id.find(id) == s_game_objects_by_id.end(), "GameObject with id " << id << "already exists.");
+	bienne_assert(s_game_objects_by_id.find(id) == s_game_objects_by_id.end(), "GameObject with id " << id << "already exists.");
 	m_identifier = id;
 	s_game_objects_by_id.insert(std::pair<int, GameObject*>(m_identifier, this));
 }
@@ -211,7 +211,7 @@ void GameObject::destroy()
 
 void GameObject::addComponent(Component* component)
 {
-	hb_assert(component != nullptr, "Trying to add a null component pointer to a GameObject.");
+	bienne_assert(component != nullptr, "Trying to add a null component pointer to a GameObject.");
 	m_components.push_back(component);
 	component->setGameObject(this);
 	component->init();

@@ -1,5 +1,5 @@
 #include "DataRepository.h"
-using namespace hb;
+using namespace bienne;
 
 
 DataRepository::DataRepository():

@@ -1,5 +1,5 @@
 #include "Vector2d.h"
-using namespace hb;
+using namespace bienne;
 
 Vector2d operator -(const Vector2d& right)
 {
